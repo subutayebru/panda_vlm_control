@@ -1,0 +1,124 @@
+<?xml version="1.0" ?>
+<sdf version="1.6">
+  <world name="panda_workspace">
+            <!--Select the general parameters of the physics simulation, e.g. step size, type of physics engine, etc.-->
+        <physics name="ode" type="ode">
+            <max_step_size>0.001</max_step_size>
+            <real_time_factor>1.0</real_time_factor>
+        </physics>
+
+        <!--The general plugins of the simulation are now set in the following order:
+        - Physics (controls the physics simulation)
+        - User Commands (allows to send commands to the simulation)
+        - Scene Broadcaster (broadcasts the scene to the client)
+        - Sensors (allows to add sensors to the simulation, e.g. cameras, lidars, etc.)
+        -->
+        <plugin
+            filename="libignition-gazebo-physics-system.so"
+            name="ignition::gazebo::systems::Physics">
+        </plugin>
+        <plugin
+            filename="libignition-gazebo-user-commands-system.so"
+            name="ignition::gazebo::systems::UserCommands">
+        </plugin>
+        <plugin
+            filename="libignition-gazebo-scene-broadcaster-system.so"
+            name="ignition::gazebo::systems::SceneBroadcaster">
+        </plugin>
+        <!-- The Lidar sensor is added to the vehicle, it is defined as a plugin that will be used to scan the environment -->
+        <plugin
+            filename="libignition-gazebo-sensors-system.so"
+            name="ignition::gazebo::systems::Sensors">
+            <render_engine>ogre2</render_engine>
+        </plugin>
+
+    <!--General Parameters of the world-->
+        <light type="directional" name="sun">
+            <cast_shadows>true</cast_shadows>
+            <pose>0 0 10 0 0 0</pose>
+            <diffuse>0.8 0.8 0.8 1</diffuse>
+            <specular>0.2 0.2 0.2 1</specular>
+            <attenuation>
+                <range>1000</range>
+                <constant>0.9</constant>
+                <linear>0.01</linear>
+                <quadratic>0.001</quadratic>
+            </attenuation>
+            <direction>-0.5 0.1 -0.9</direction>
+        </light>
+
+    <!-- Standard Gazebo elements -->
+    <include>
+      <uri>model://ground_plane</uri>
+    </include>
+    
+
+    <!-- Table from Fuel -->
+    <include>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Table</uri>
+      <name>table</name>
+      <pose>0 0 0 0 0 0</pose>
+    </include>
+
+     <!-- Movable Red Cube -->
+    <model name="red_cube">
+      <pose>0.25 0.25 1.25 0 0 0</pose>  <!-- 7.37 (table height) + 0.1 (half cube height) -->
+      <link name="link">
+        <inertial>
+          <mass>0.1</mass>
+          <inertia>
+            <ixx>0.000167</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>0.000167</iyy>
+            <iyz>0</iyz>
+            <izz>0.000167</izz>
+          </inertia>
+        </inertial>
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.05 0.05 0.05</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode>
+                <mu>1.0</mu>
+                <mu2>1.0</mu2>
+              </ode>
+            </friction>
+            <contact>
+              <collide_bitmask>0x01</collide_bitmask>
+            </contact>
+          </surface>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>0.05 0.05 0.05</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>1 0 0 1</ambient>
+            <diffuse>1 0 0 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+      </link>
+
+      <!-- Make the cube movable -->
+      <static>false</static>
+    </model>
+
+    <!-- Panda included as a packaged model -->
+    <include>
+      <uri>model://panda</uri>
+      <name>panda</name>
+      <!-- Put the base on top of ~0.75 m table; tweak Z after you check the actual top height -->
+      <pose>0 0 1 0 0 0</pose>
+    </include>
+    
+   
+  </world>
+</sdf>

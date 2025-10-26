@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<sdf version="1.9">
+  <world name="default">
+
+    <!-- 1) TABLE from Gazebo Fuel -->
+    <!-- If you grabbed the <> snippet from the Fuel page, paste that here instead. -->
+    <include>
+      <name>table</name>
+      <!-- Fuel URL (keep on one line) -->
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Table</uri>
+      <!-- Place table at world origin; we'll put Panda & cube on top -->
+      <pose>0 0 0 0 0 0</pose>
+    </include>
+
+    <!-- 2) PANDA included as a packaged model -->
+    <!-- We'll assume a typical table top height of 0.75 m; adjust if your Fuel table differs. -->
+    <include>
+      <uri>model://panda</uri>
+      <name>panda</name>
+      <!-- Lift the robot so its base sits on the tabletop -->
+      <pose>0 0 0.75 0 0 0</pose>
+    </include>
+
+    <!-- 3) RED CUBE on the tabletop (5 cm) -->
+    <model name="red_cube">
+      <static>false</static>
+      <link name="cube_link">
+        <!-- Cube size (m) -->
+        <inertial><mass>0.2</mass></inertial>
+        <collision name="col">
+          <geometry><box><size>0.05 0.05 0.05</size></box></geometry>
+        </collision>
+        <visual name="vis">
+          <geometry><box><size>0.05 0.05 0.05</size></box></geometry>
+          <material>
+            <ambient>1 0 0 1</ambient>
+            <diffuse>1 0 0 1</diffuse>
+          </material>
+        </visual>
+
+        <!-- Place the cube near the table center, 2.5 cm above the tabletop.
+             Tabletop assumed at z=0.75; cube half-height is 0.025 => z = 0.775 -->
+        <pose>0.20 0.00 0.775 0 0 0</pose>
+      </link>
+    </model>
+
+    <!-- (Optional) Lights / physics defaults could go here -->
+
+  </world>
+</sdf>
