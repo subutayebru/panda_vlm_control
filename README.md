@@ -22,6 +22,8 @@ Developed by [Ebru Subutay](https://github.com/subutayebru) – `subutayebru@gma
 ---
 
 ## 🗂️ Repository Structure  (ADJUST)
+
+```bash
 panda_vlm_control/
 ├── launch/ # Simulation and control launch files
 ├── config/ # MoveIt and controller configurations
@@ -34,7 +36,7 @@ panda_vlm_control/
 ├── package.xml
 ├── setup.py # Python install 
 └── README.md
-
+```
 
 ---
 
@@ -66,7 +68,7 @@ colcon build --symlink-install
 
 # Source the workspace
 source install/setup.bash
-
+```
 
 🙏 Acknowledgements
 
