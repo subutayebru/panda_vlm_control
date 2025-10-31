@@ -1,57 +1,73 @@
-# panda_ign_moveit2
+# 🐼 panda_vlm_control
 
-Software packages for Franka Emika Panda that enable manipulation with MoveIt 2 inside ~~Ignition~~ Gazebo. For control, [gz_ros2_control](https://github.com/ros-controls/gz_ros2_control) is used.
+**Simulation and Control of the Franka Emika Panda Arm in Gazebo with Vision-Language Model Integration**
 
-<p align="left" float="middle">
-  <img width="50.0%" src="https://user-images.githubusercontent.com/22929099/147374612-3d0209d3-574e-4a4f-8077-edbbcf8fc47d.gif" alt="Animation of ex_follow_target"/>
-</p>
+---
 
-## Overview
+## 🧠 Overview
 
-This branch targets ROS 2 `galactic` and Gazebo `fortress`.
+This repository builds upon [`panda_gz_moveit2`](https://github.com/AndrejOrsula/panda_gz_moveit2) to simulate and control the **Franka Emika Panda** robot arm in **Gazebo (Ignition)** and **MoveIt 2** — with an added camera and a plan to integrate a Vision-Language Model (VLM) for high-level task execution.
 
-Below is an overview of the included packages, with a short description of their purpose. For more information, please see README.md of each individual package.
+Developed by [Ebru Subutay](https://github.com/subutayebru) – `subutayebru@gmail.com`.
 
-- [**panda**](./panda) – Metapackage
-- [**panda_description**](./panda_description) – URDF and SDF description of the robot
-- [**panda_moveit_config**](./panda_moveit_config) – MoveIt 2 configuration for the robot
+---
 
-## Instructions
+## 🚀 Features
 
-### Dependencies
+- 🐼 Simulated **Franka Panda** with MoveIt 2 and Gazebo
+- 🌍 Custom Gazebo world
+- 📷 **Monocular camera sensor** added to the scene
+- 🧠 Planned integration with a trainable **VLM** to perform manipulation tasks from natural language instructions
 
-These are the primary dependencies required to use this project.
+---
 
-- ROS 2 [Galactic](https://docs.ros.org/en/galactic/Installation.html)
-- Gazebo [Fortress](https://gazebosim.org/docs/fortress)
+## 🗂️ Repository Structure  (ADJUST)
+panda_vlm_control/
+├── launch/ # Simulation and control launch files
+├── config/ # MoveIt and controller configurations
+├── urdf/ # XACRO/URDF robot description
+├── worlds/ # Custom Gazebo world(s)
+├── rviz/ # RViz2 config
+├── scripts/ # (Future) Python scripts for VLM control
+├── meshes/ # Panda model meshes
+├── CMakeLists.txt
+├── package.xml
+├── setup.py # Python install 
+└── README.md
 
-All additional dependencies are either pulled via [vcstool](https://wiki.ros.org/vcstool) ([panda_ign_moveit2.repos](./panda_ign_moveit2.repos)) or installed via [rosdep](https://wiki.ros.org/rosdep) during the building process below.
 
-### Building
+---
 
-Clone this repository, import dependencies, install dependencies and build with [colcon](https://colcon.readthedocs.io).
+## 📦 Dependencies
+
+- **ROS 2 Humble**
+- **Gazebo Fortress** (Ignition Gazebo)
+- **MoveIt 2**
+- `ros_gz` (for ROS 2-Gazebo bridges)
+
+> ⚠️ Use Gazebo Fortress (Ignition) – not Classic Gazebo.
+
+---
+
+## 🛠️ Installation
 
 ```bash
-# Clone this repository into your favourite ROS 2 workspace
-git clone https://github.com/AndrejOrsula/panda_ign_moveit2.git
-# Import dependencies
-vcs import < panda_ign_moveit2/panda_ign_moveit2.repos
+# Clone the repo
+mkdir -p ~/ws_franka/src
+cd ~/ws_franka/src
+git clone https://github.com/subutayebru/panda_vlm_control.git
+cd ..
+
 # Install dependencies
-IGNITION_VERSION=fortress rosdep install -y -r -i --rosdistro ${ROS_DISTRO} --from-paths .
-# Build
-colcon build --merge-install --symlink-install --cmake-args "-DCMAKE_BUILD_TYPE=Release"
-```
+rosdep install --from-paths src --ignore-src -r -y
 
-### Sourcing
+# Build the workspace
+colcon build --symlink-install
 
-Before utilising this package, remember to source the ROS 2 workspace.
+# Source the workspace
+source install/setup.bash
 
-```bash
-source install/local_setup.bash
-```
 
-This enables:
+🙏 Acknowledgements
 
-- Execution of binaries, scripts and examples via `ros2 run panda_* <executable>`
-- Launching of setup scripts via `ros2 launch panda_* <launch_script>`
-- Discoverability of shared resources
+Based on Andrej Orsula's panda_gz_moveit2 packages.
