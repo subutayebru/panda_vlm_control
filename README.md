@@ -78,7 +78,7 @@ Based on Andrej Orsula's panda_gz_moveit2 packages.
 Commands to run shortcut!
 
 ```bash
-ros2 launch panda_moveit_config ex_ign_control.launch.py world:=src/panda_gz_moveit2/panda_description/worlds/panda_workspace.sdf
+ros2 launch panda_moveit_config ex_ign_control.launch.py world:=src/panda_vlm_control/panda_description/worlds/panda_workspace.sdf
 
 ros2 run ros_gz_bridge parameter_bridge   /wrist_camera/image@sensor_msgs/msg/Image@gz.msgs.Image   /wrist_camera/camera_info@sensor_msgs/msg/CameraInfo@gz.msgs.CameraInfo
 
