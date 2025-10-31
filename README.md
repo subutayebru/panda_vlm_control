@@ -70,6 +70,6 @@ colcon build --symlink-install
 source install/setup.bash
 ```
 
-🙏 Acknowledgements
+## 🙏 Acknowledgements
 
 Based on Andrej Orsula's panda_gz_moveit2 packages.
