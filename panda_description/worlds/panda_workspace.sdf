@@ -110,15 +110,7 @@
       <!-- Make the cube movable -->
       <static>false</static>
     </model>
-
-    <!-- Panda included as a packaged model -->
-    <include>
-      <uri>model://panda</uri>
-      <name>panda</name>
-      <!-- Put the base on top of ~0.75 m table; tweak Z after you check the actual top height -->
-      <pose>0 0 1 0 0 0</pose>
-    </include>
-    
+ 
    
   </world>
 </sdf>
