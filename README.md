@@ -89,3 +89,7 @@ ros2 control list_controllers
 
 
 ```
+## Resources worth looking at 
+
+https://erdalpekel.de/?p=55
+https://github.com/huggingface/lerobot/issues/1567
